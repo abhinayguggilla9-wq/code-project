@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campus Assistant AI MALLA REDDY </title>
+  <style>
+    /* Basic reset and font */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Chat container */
+    .chat-container {
+      background: white;
+      width: 400px;
+      max-width: 100%;
+      height: 600px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .chat-header {
+      background: #004aad;
+      color: white;
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Messages area */
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background: #e9ebee;
+    }
+
+    /* Message bubbles */
+    .message {
+      margin-bottom: 15px;
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 20px;
+      line-height: 1.4;
+    }
+
+    /* User message */
+    .message.user {
+      background: #004aad;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+
+    /* AI message */
+    .message.ai {
+      background: #ddd;
+      color: #333;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+    }
+
+    /* Input area */
+    .chat-input-area {
+      display: flex;
+      border-top: 1px solid #ddd;
+      padding: 10px;
+      background: #fafafa;
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 10px 15px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .chat-input-area input:focus {
+      border-color: #004aad;
+    }
+
+    .chat-input-area button {
+      margin-left: 10px;
+      background: #004aad;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .chat-input-area button:hover {
+      background: #003080;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="chat-header">Campus Assistant AI</div>
+
+    <div class="chat-messages" id="chatMessages">
+      <!-- Messages will appear here -->
+      <div class="message ai">Hi! I’m your Campus Assistant. Ask me about schedules, facilities, dining, library services, or administrative procedures.</div>
+    </div>
+
+    <form class="chat-input-area" id="chatForm">
+      <input type="text" id="userInput" placeholder="Type your question..." autocomplete="off" required />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    // Basic chat UI logic (frontend only)
+    const chatForm = document.getElementById('chatForm');
+    const chatMessages = document.getElementById('chatMessages');
+    const userInput = document.getElementById('userInput');
+
+    chatForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const userText = userInput.value.trim();
+      if (!userText) return;
+
+      // Add user message
+      addMessage(userText, 'user');
+
+      // Clear input
+      userInput.value = '';
+
+      // Fake AI response - replace with real AI/database logic later
+      setTimeout(() => {
+        const aiResponse = generateResponse(userText);
+        addMessage(aiResponse, 'ai');
+      }, 800);
+    });
+
+    function addMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.classList.add('message', sender);
+      msg.textContent = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Simple dummy AI logic (you replace this with your AI/database)
+    function generateResponse(input) {
+      const lowerInput = input.toLowerCase();
+
+      if (lowerInput.includes('schedule')) {
+        return "The class schedule is available on the campus portal from 8 AM to 8 PM.";
+      }
+      if (lowerInput.includes('facility') || lowerInput.includes('facilities')) {
+        return "Our campus facilities include a gym, computer labs, and study rooms open from 7 AM to 10 PM.";
+      }
+      if (lowerInput.includes('dining')) {
+        return "Dining halls are open 7 days a week, from 7 AM to 9 PM. Options include vegan and gluten-free meals.";
+      }
+      if (lowerInput.includes('library')) {
+        return "The library offers book lending, study spaces, and online resources. It’s open from 8 AM to midnight.";
+      }
+      if (lowerInput.includes('administrative')) {
+        return "For administrative procedures, visit the admin office or check the website for forms and contacts.";
+      }
+
+      return "Sorry, I don't have the info on that. Please try asking about schedules, facilities, dining, library, or admin procedures.";
+    }
+  </script>
+
+</body>
+</html>
